@@ -7,57 +7,65 @@ namespace DCSites;
 
 class Core {
 
-    public static function get_instance() {
-        static $instance = null;
-        if ( null === $instance )
+	public static function get_instance() {
+		static $instance = null;
+		if ( null === $instance ) {
 			$instance = new static();
-        return $instance;
-    }
+		}
+		return $instance;
+	}
 
-    protected function __construct() {
-        // Add login page styles
-        add_action( 'login_head', [ $this, 'login_page_styles' ] );
+	protected function __construct() {
+		// Add login page styles
+		add_action( 'login_head', [ $this, 'login_page_styles' ] );
 
-        // Change the login page logo's link
-        add_filter( 'login_headerurl', [ $this, 'change_login_logo_link' ] );
+		// Change the login page logo's link
+		add_filter( 'login_headerurl', [ $this, 'change_login_logo_link' ] );
 
-        // Change "Howdy" in the admin bar
-        add_filter( 'gettext', [ $this, 'change_howdy' ], 10, 3);
-    }
+		// Change "Howdy" in the admin bar
+		add_filter( 'gettext', [ $this, 'change_howdy' ], 10, 3 );
+	}
 
-    /**
-     * Translate the "Howdy, Username" string
-     * to something less colloquial
-     * @param  string $translated The translated text of the string
-     * @param  string $text       The original text of the string
-     * @param  string $domain     The translation domain
-     * @return string             The (maybe) new translated text
-     */
-    public function change_howdy($translated, $text, $domain) {
+	public static function deactivate() {
+		remove_role( 'webmaster' );
+		delete_option( DOMAIN . '-version' );
+	}
 
-        if ( false !== strpos( $translated, 'Howdy' ) && 'default' == $domain ) {
-            return str_replace('Howdy', 'Welcome', $translated);
-        }
+	/**
+	 * Translate the "Howdy, Username" string
+	 * to something less colloquial
+	 *
+	 * @param  string $translated The translated text of the string
+	 * @param  string $text       The original text of the string
+	 * @param  string $domain     The translation domain
+	 * @return string             The (maybe) new translated text
+	 */
+	public function change_howdy( $translated, $text, $domain ) {
 
-        return $translated;
-    }
+		if ( false !== strpos( $translated, 'Howdy' ) && 'default' == $domain ) {
+			return str_replace( 'Howdy', 'Welcome', $translated );
+		}
 
-    /**
-     * Change the link for the big logo on the login page
-     * @return string Link to DC Sites
-     */
-    public function change_login_logo_link() {
-        return 'https://dcsit.es';
-    }
+		return $translated;
+	}
 
-    /**
-     * Echo out our custom CSS for the login page
-     * White label that page!
-     */
-    public function login_page_styles() {
-        $logo = URL . '/images/logo.svg';
+	/**
+	 * Change the link for the big logo on the login page
+	 *
+	 * @return string Link to DC Sites
+	 */
+	public function change_login_logo_link() {
+		return 'https://dcsit.es';
+	}
 
-    	echo <<<HTML
+	/**
+	 * Echo out our custom CSS for the login page
+	 * White label that page!
+	 */
+	public function login_page_styles() {
+		$logo = URL . '/images/logo.svg';
+
+		echo <<<HTML
 
         <style type="text/css">
             body.login {
@@ -66,7 +74,7 @@ class Core {
 
             body.login .message, body.login form {
                 box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
-            }
+                            }
 
             body.login .message, body.login #login_error {
                 border-left-color: #A7383D;
@@ -93,7 +101,7 @@ class Core {
         </style>';
 
 HTML;
-    }
+	}
 }
 
 Core::get_instance();
