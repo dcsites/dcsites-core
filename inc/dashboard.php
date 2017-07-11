@@ -61,7 +61,6 @@ class Dashboard extends Core {
 		);
 
 		$capabilities['theme'] = array(
-			'switch_themes'          => true,
 			'edit_theme_options'     => true,
 			'customize'              => true,
 		);
