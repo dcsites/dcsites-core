@@ -1,13 +1,15 @@
 <?php
-/*
-Plugin Name: DC Sites Core Features
-Plugin URI: https://github.com/drunken-coding/dcsites-core
-Description: Provides a number of features for clients of DC Sites
-Version: 1.0.0
-Author: DC Sites
-Author URI: https://dcsit.es
-Text Domain: dcsites
-*/
+/**
+ * Plugin Name: DC Sites Core Features
+ * Plugin URI: https://github.com/drunken-coding/dcsites-core
+ * Description: Provides a number of features for clients of DC Sites
+ * Version: 1.0.0
+ * Author: DC Sites
+ * Author URI: https://dcsit.es
+ * Text Domain: dcsites
+ *
+ * @package dcsites-core
+ */
 
 namespace DCSites;
 
@@ -23,10 +25,10 @@ global $webmaster_capabilities;
  */
 $webmaster_capabilities = [ 'base', 'theme', 'user' ];
 
-require 'inc/core.php';
+require 'inc/class-core.php';
 
 if ( is_admin() ) {
-	require 'inc/dashboard.php';
+	require 'inc/class-dashboard.php';
 }
 
 register_deactivation_hook( __FILE__, [ 'Core', 'deactivate' ] );
