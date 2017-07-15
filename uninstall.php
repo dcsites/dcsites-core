@@ -1,11 +1,13 @@
 <?php
 /**
  * Uninstallation actions
+ *
+ * @package dcsites-core
  */
 
 // If uninstall.php is not called by WordPress, die.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    die;
+	die;
 }
 
 // Delete our added user role.
