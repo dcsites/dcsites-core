@@ -40,14 +40,6 @@ class Core {
 	}
 
 	/**
-	 * Runs on plugin deactivation
-	 */
-	public static function deactivate() {
-		remove_role( 'webmaster' );
-		delete_option( DOMAIN . '-version' );
-	}
-
-	/**
 	 * Translate the "Howdy, Username" string
 	 * to something less colloquial
 	 *

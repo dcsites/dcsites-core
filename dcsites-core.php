@@ -30,5 +30,3 @@ require 'inc/class-core.php';
 if ( is_admin() ) {
 	require 'inc/class-dashboard.php';
 }
-
-register_deactivation_hook( __FILE__, [ 'Core', 'deactivate' ] );
